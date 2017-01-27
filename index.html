@@ -1,53 +1,5 @@
-<script>
-		SelectGrid();
-		function SelectGrid(c=".select-grid", size="10", multiple=false)
-		{
-			var selGrid = $(c);
-			var maiorTexto = 0;
-			selGrid.attr('size', size).attr('multiple', multiple);
-			$.each($(c + ' option'), function(k,v){
-				var textos = v.text.split("-");
-				if(maiorTexto <= 0)
-					maiorTexto = textos[textos.length - 1].length;
-				else
-				{
-					if(maiorTexto < textos[textos.length - 1].length)
-						maiorTexto = textos[textos.length - 1].length;
-				}
-			});
-			var textos = [];
-			var tFinal = [];
-			$.each($(c + ' option'), function(k,v){
-				 textos = v.text.split("-");
-				for	(var i = 0; i < (textos.length -1); i++){
-					var tTexto = textos[i].length;
-					var diferenca = maiorTexto - tTexto;
-					for(var j = 0; j <= diferenca; j++)
-					{
-						if(j == diferenca)
-							textos[i] = textos[i] + "&nbsp;|&nbsp; ";
-						else
-							textos[i] = textos[i] + "&nbsp;";
-					}
-									
-				}
-				tFinal[k] = "";
-				for(var x = 0; x < textos.length; x++){
-					tFinal[k] += textos[x];
-				}	
-			});			
-			$(c + ' option').remove();
-			for (var i = 0; i < tFinal.length;i++)
-			{
-				$(c).append('<option value="'+i+'">'+tFinal[i]+'</option>');
-			}
-		}
-</script>
- <style>
-	.select-grid{overflow:auto; font-family:"Lucida Console", Monaco, monospace;}
-</style>
 
-<select class="form-control select-grid" id="cliente">
+<select class="select-grid">
 	<optgroup label="coluna 1 - coluna2"></optgroup>
 	<option value="0">1Lorem ipsum-2Lorem ipsum dolor sit-3Lorem ipsum dolor sit</option>
 	<option value="1">1Lorem ipsum-2Lorem ipsum dolor sit</option>
@@ -56,3 +8,11 @@
 	<option value="4">1Lorem ipsum-2Lorem ipsum dolor sit</option>
 	<option value="5">1Lorem ipsum dolor sit amet-2Lorem ipsum dolor sit amet</option>
 </select>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>
+<script src="select-grid.js"></script>
+<script>
+	$('.select-grid').SelectGrid({
+		size: 10,
+		multiple: false
+	});
+</script>
